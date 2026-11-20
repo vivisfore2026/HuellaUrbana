@@ -1,26 +1,110 @@
+:root{
+  --verde: #09C846;
+  --naranja: #f68a2b;
+  --cielo: #d8d8f2;
+  --azul: #260fbc;
+  --blanco: #ffffff;
+}
+
+
+
 body {
-  background-color: #8fd4fa;
-  color: DarkBlue;
+  background-color: var(--cielo);
+ /*  background-image: url('../img/guarderia.jpg'); */ /* Imagen de fondo */
+  color: var(--azul);
+  margin: auto;
 }
 
 header {
-  background-color: green;
+  background-color: var(--verde);
 }
 
-p {
+header img{
+  width: 300px;
+  height: 200px;
+}
+
+nav ul{
+  list-style: none;
+  text-align: center;
+}
+
+nav li{
+  display: inline-block;
+  margin-right: 20px;
+}
+
+nav a{
+  color: var(--blanco);
+  text-decoration: none;
+  font-family: "Henny Penny", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18pt;
+}
+
+img {
+max-width: 100%;
+}
+
+#inicio{
+  text-align: center;
+}
+
+#inicio img{
+  width: 500px;
+  height: 600px;
+  border-radius: 30px;
+}
+
+h1,h2,h3{
+  color: var(--verde);
+  font-family: "Henny Penny", system-ui;
+  font-weight: 400;
+  font-style: normal;
   font-size: 20pt;
 }
 
-#eslogan{
-    color:red;
-    font-size: 30pt;
+#titulo{
+  font-size: 4rem;
 }
 
-.parrafo{
-    background-color: DarkViolet;
+article{
+  background-color: var(--blanco);
+  padding: 20px 100px;
+  margin: 30px;
+  border: 2px solid var(--verde);
+  border-radius: 15px;
 }
+
+article img{
+  border-radius: 15px;
+  height: 500px;
+}
+
+.boton{
+  display: inline-block;
+  background-color: var(--naranja);
+  color: var(--azul);
+  padding: 12px 28px;
+  margin: 20px 0;
+  border-radius: 30px;
+  text-decoration: none;
+  font-family: "Henny Penny", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18pt;
+}
+
+.boton:hover{
+  background-color: var(--cielo);
+  color: var(--verde);
+}
+
+
+
 
 #servicios article img{
-    width: 300px;
-    height: 300px;
+    width: 500px;
+    height: 500px;
 }

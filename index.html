@@ -1,88 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Huella Urbana</title>
-    <link rel="stylesheet" href="css/estilos.css">
-    <link rel="stylesheet" href="css/formulario.css">
-</head>
-<body>
+    <link rel="stylesheet" href="css/estilos.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Knewave&display=swap" rel="stylesheet">
+
+  </head>
+  <body>
     <header>
-        <img src="img/logo.png" alt="Logo de Huella Urbana">
-        <nav>
-            <ul>
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#planes">Planes</a></li>
-                <li><a href="#paseadores">Paseadores</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>   
+      <img src="img/logo.png" alt="Logo de Huella Urbana" />
+      <nav>
+        <ul>
+          <li><a href="#inicio" class="boton">Inicio</a></li>
+          <li><a href="#servicios" class="boton">Servicios</a></li>
+          <li><a href="#planes" class="boton">Planes</a></li>
+          <li><a href="#paseadores" class="boton">Paseadores</a></li>
+          <li><a href="#contacto" class="boton">Contacto</a></li>
+        </ul>
+      </nav>
     </header>
-   <main>
-    <section id="inicio">
-        <h1 class="parrafo">Huella Urbana</h1>
-        <p id="eslogan">Paseos seguros y felices para tu mascota, mientras tu cumples con tu dia.</p>
-        <a href="#contacto">Agenda un paseo</a>
-        <img src="img/principal.jpg" alt="Paseo de mascotas">
-    </section>
-    
-    <section id="servicios">
+    <main>
+      <section id="inicio">
+        <h1 id="titulo">Huella Urbana</h1>
+        <p id="eslogan">
+          Paseos seguros y felices para tu mascota, mientras tu cumples con tu
+          dia.
+        </p>
+        <a href="#contacto" class="boton">Agenda un paseo</a><br>
+        <img src="img/principal.jpg" alt="Paseo de mascotas" />
+      </section>
+      <section id="video">
+        <iframe
+          width="919"
+          height="517"
+          src="https://www.youtube.com/embed/3GveEnHVZno"
+          title="Mascotas adorables durante 20 minutos 🥺 La Vida Secreta de tus Mascotas |Dibujos Animados en Español"
+          frameborder="0"
+          allow="
+            accelerometer;
+            autoplay;
+            clipboard-write;
+            encrypted-media;
+            gyroscope;
+            picture-in-picture;
+            web-share;
+          "
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </section>
+      <section id="servicios">
         <article>
-            <img src="img/paseo-individual.jpg" alt="Paseo Individual">
-            <h3>Paseo Individual</h3>
-            <p class="parrafo">Atencion exclusiva para tu mascota durante 30 o 60 minutos.</p>
+          <img src="img/paseo-individual.jpg" alt="Paseo Individual" />
+          <h3>Paseo Individual</h3>
+          <p class="parrafo">
+            Atencion exclusiva para tu mascota durante 30 o 60 minutos.
+          </p>
         </article>
         <article>
-            <img src="img/paseo-grupal.jpg" alt="Paseo Grupal">
-            <h3>Paseo Grupal</h3>
-            <p class="parrafo">Tu mascota socializa con otros perros en grupo de maximo 5.</p>
+          <img src="img/paseo-grupal.jpg" alt="Paseo Grupal" />
+          <h3>Paseo Grupal</h3>
+          <p class="parrafo">
+            Tu mascota socializa con otros perros en grupo de maximo 5.
+          </p>
         </article>
         <article>
-            <img src="img/guarderia.jpg" alt="Guarderia">
-            <h3>Guarderia</h3>
-            <p class="parrafo">Juego, descanso y cuidao mientras estas en el trabajo.</p>
+          <img src="img/guarderia.jpg" alt="Guarderia" />
+          <h3>Guarderia</h3>
+          <p class="parrafo">
+            Juego, descanso y cuidao mientras estas en el trabajo.
+          </p>
         </article>
-    </section>
-    <section id="planes">
+      </section>
+      <section id="planes">
         <article>
-            <h3>Plan Semanal</h3>
-            <p class="parrafo">$65.000 por 5 paseos.</p>
-            <ul>
-                <li>Lunes a viernes</li>
-                <li>Mismo paseador</li>
-                <li>Reporte con foto</li>
-            </ul>
-        </article>
-        <article>
-            <h3>Plan Mensual</h3>
-            <p class="parrafo">$220.000 por 20 paseos</p>
-            <ul>
-                <li>Lunes a Sabado</li>
-                <li>Mismo paseador</li>
-                <li>Seguimiento del recorrido con GPS</li>
-            </ul>
-        </article>
-    </section>
-    <section id="paseadores">
-        <article>
-            <img src="img/paseador-1.jpg" alt="Foto Juan Gomez">
-            <h3>Juan Gómez</h3>
-            <p class="parrafo">Paseador desde 2021. Experta en perros grandes</p>
+          <h3>Plan Semanal</h3>
+          <p class="parrafo">$65.000 por 5 paseos.</p>
+          <ul>
+            <li>Lunes a viernes</li>
+            <li>Mismo paseador</li>
+            <li>Reporte con foto</li>
+          </ul>
         </article>
         <article>
-            <img src="img/paseador-2.jpg" alt="Foto Andrea Rojas">
-            <h3>Andrea Rojas</h3>
-            <p class="parrafo">Especialista en cachorros y perros con mucha energia.</p>
+          <h3>Plan Mensual</h3>
+          <p class="parrafo">$220.000 por 20 paseos</p>
+          <ul>
+            <li>Lunes a Sabado</li>
+            <li>Mismo paseador</li>
+            <li>Seguimiento del recorrido con GPS</li>
+          </ul>
+        </article>
+      </section>
+      <section id="paseadores">
+        <article>
+          <img src="img/paseador-1.jpg" alt="Foto Juan Gomez" />
+          <h3>Juan Gómez</h3>
+          <p class="parrafo">Paseador desde 2021. Experta en perros grandes</p>
         </article>
         <article>
-            <img src="img/paseador-3.jpg" alt="Foto Camilo Sanchez">
-            <h3>Camilo Sanchez</h3>
-            <p class="parrafo">Estudiante de veterinaria. Ideal para mascotas grandes.</p>
+          <img src="img/paseador-2.jpg" alt="Foto Andrea Rojas" />
+          <h3>Andrea Rojas</h3>
+          <p class="parrafo">
+            Especialista en cachorros y perros con mucha energia.
+          </p>
         </article>
-    </section>
-   </main>
-    
-</body>
+        <article>
+          <img src="img/paseador-3.jpg" alt="Foto Camilo Sanchez" />
+          <h3>Camilo Sanchez</h3>
+          <p class="parrafo">
+            Estudiante de veterinaria. Ideal para mascotas grandes.
+          </p>
+        </article>
+      </section>
+      <section id="contacto">
+        <h2>Contactanos</h2>
+        <p>Escribenos y agenda el primer paseo para tu mascota.</p>
+        <ul>
+          <li>
+            <a href="mailto:contacto@huellaurbana.com"
+              >contacto@huellaurbana.com</a
+            >
+          </li>
+          <li>
+            <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2026 Huella Urbana. Todos los derechos reservados.</p>
+      <p>Fotos: <a href="https://www.pexels.com" target="_blank">Pexels</a></p>
+    </footer>
+  </body>
 </html>
