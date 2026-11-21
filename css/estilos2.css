@@ -1,0 +1,644 @@
+/* ==========================================================================
+   HUELLA URBANA - Hoja de estilos
+   --------------------------------------------------------------------------
+   Enfoque MOBILE FIRST: los estilos base están pensados para celular y con
+   media queries (min-width) se ajustan para tablet y escritorio.
+
+   Convención de comentarios:
+   - "ANTES (ya no se usa)": código original desactivado.
+   - "POR QUÉ": justificación del cambio.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. VARIABLES
+   ========================================================================== */
+:root {
+  /* Paleta original (se conserva la identidad de marca) */
+  --verde: #09C846;
+  --naranja: #f68a2b;
+  --cielo: #d8d8f2;
+  --azul: #260fbc;
+  --blanco: #ffffff;
+
+  /* NUEVAS variables */
+  --verde-oscuro: #067a2b;   /* el verde original sobre fondo claro casi no se lee (contraste bajo); este sí cumple para textos */
+  --naranja-oscuro: #d9701a; /* para el hover del botón */
+  --cielo-claro: #f4f4fd;    /* fondo suave para alternar secciones */
+  --azul-oscuro: #1a0a85;
+
+  --fuente-titulos: "Henny Penny", system-ui, cursive;
+  --fuente-botones: "Knewave", system-ui, cursive;   /* ya estaba cargada en el HTML pero no se usaba */
+  --fuente-texto: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --radio: 20px;
+  --sombra: 0 8px 24px rgba(38, 15, 188, 0.12);
+  --sombra-hover: 0 16px 36px rgba(38, 15, 188, 0.22);
+  --ancho-max: 1200px;
+  --transicion: 0.3s ease;
+}
+
+
+/* ==========================================================================
+   2. RESET BÁSICO
+   ========================================================================== */
+
+/* POR QUÉ: con border-box el padding y el borde quedan DENTRO del ancho
+   declarado, así un elemento con width:100% nunca se desborda. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* el menú usa anclas (#servicios...), así el salto es suave */
+}
+
+img,
+iframe {
+  display: block;   /* evita el espacio fantasma que dejan las imágenes "inline" debajo */
+  max-width: 100%;
+}
+
+/* ANTES (ya no se usa):
+img {
+max-width: 100%;
+}
+   POR QUÉ: se unificó arriba junto con el iframe y se añadió display:block. */
+
+
+/* ==========================================================================
+   3. BODY Y TIPOGRAFÍA GENERAL
+   ========================================================================== */
+
+/* ANTES (ya no se usa):
+body {
+  background-color: var(--cielo);
+  background-image: url('../img/guarderia.jpg');   (estaba comentada)
+  color: var(--azul);
+  margin: auto;
+}
+   POR QUÉ:
+   - "margin: auto" no hace nada en el body porque no tiene un ancho
+     definido; además deja el margen por defecto del navegador (8px) y
+     aparece una franja alrededor del header. Se cambia por margin: 0.
+   - La imagen de fondo ya estaba desactivada; se elimina para no dejar
+     código muerto (además, una foto detrás del texto dificulta la lectura).
+   - No había fuente para el texto: el navegador usaba Times New Roman. */
+
+body {
+  margin: 0;
+  background-color: var(--cielo-claro);
+  color: var(--azul);
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ANTES (ya no se usa):
+h1,h2,h3{
+  color: var(--verde);
+  font-family: "Henny Penny", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20pt;
+}
+   POR QUÉ:
+   - "pt" es una unidad pensada para impresión; en pantalla se usa rem.
+   - Un tamaño fijo no se adapta: clamp() da un tamaño mínimo, uno fluido
+     según el ancho de la pantalla y uno máximo.
+   - El verde #09C846 sobre fondo claro tiene contraste muy bajo; se usa
+     --verde-oscuro para que se lea bien. */
+
+h1,
+h2,
+h3 {
+  color: var(--verde-oscuro);
+  font-family: var(--fuente-titulos);
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 0.6em;
+}
+
+h2 {
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+}
+
+h3 {
+  font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+}
+
+.parrafo {
+  margin: 0 0 1rem;
+  color: var(--azul);
+}
+
+
+/* ==========================================================================
+   4. HEADER Y MENÚ
+   ========================================================================== */
+
+/* ANTES (ya no se usa):
+header {
+  background-color: var(--verde);
+}
+header img{
+  width: 300px;
+  height: 200px;
+}
+   POR QUÉ: ancho y alto fijos deforman el logo si su proporción no es
+   exactamente 3:2, y 200px de alto ocupa casi media pantalla en celular.
+   Ahora solo se fija el alto y el ancho se calcula solo (width: auto). */
+
+header {
+  background: linear-gradient(135deg, var(--verde), var(--verde-oscuro));
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;   /* en celular: logo arriba, menú abajo */
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+header img {
+  height: 90px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ANTES (ya no se usa):
+nav ul{
+  list-style: none;
+  text-align: center;
+}
+nav li{
+  display: inline-block;
+  margin-right: 20px;
+}
+   POR QUÉ: con inline-block + margin-right el último elemento queda con un
+   espacio extra a la derecha y el menú no queda bien centrado. Flexbox con
+   "gap" reparte el espacio solo ENTRE elementos y con flex-wrap los botones
+   bajan de línea cuando no caben en celular. */
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* ANTES (ya no se usa):
+nav a{
+  color: var(--blanco);
+  text-decoration: none;
+  font-family: "Henny Penny", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18pt;
+}
+   POR QUÉ: esta regla nunca se veía. Los enlaces del menú también tienen la
+   clase .boton, y un selector de clase (.boton) tiene MÁS especificidad que
+   "nav a" (etiqueta + etiqueta), así que .boton ganaba: los enlaces salían
+   naranjas con letra azul y el color blanco se ignoraba.
+   Ahora se usa "nav .boton" (etiqueta + clase), que sí le gana a .boton. */
+
+nav .boton {
+  margin: 0;
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+  background-color: transparent;
+  color: var(--blanco);
+  border: 2px solid transparent;
+  box-shadow: none;
+}
+
+nav .boton:hover,
+nav .boton:focus-visible {
+  background-color: var(--blanco);
+  color: var(--verde-oscuro);
+  transform: none;
+}
+
+
+/* ==========================================================================
+   5. BOTONES
+   ========================================================================== */
+
+/* ANTES (ya no se usa):
+.boton{
+  ...
+  font-family: "Henny Penny", system-ui;
+  font-size: 18pt;
+  margin: 20px 0;
+}
+.boton:hover{
+  background-color: var(--cielo);
+  color: var(--verde);
+}
+   POR QUÉ:
+   - En el hover, verde claro sobre lila claro casi no se lee.
+   - Se cambia la fuente de los botones a Knewave (ya estaba importada en el
+     HTML y no se usaba) para diferenciarlos de los títulos.
+   - Se agregan sombra, transición y estado :focus-visible para quien navega
+     con teclado (accesibilidad). */
+
+.boton {
+  display: inline-block;
+  background-color: var(--naranja);
+  color: var(--azul-oscuro);
+  padding: 0.8rem 1.8rem;
+  margin: 1rem 0;
+  border-radius: 999px;
+  text-decoration: none;
+  font-family: var(--fuente-botones);
+  font-weight: 400;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 16px rgba(246, 138, 43, 0.4);
+  transition: background-color var(--transicion), color var(--transicion),
+    transform var(--transicion), box-shadow var(--transicion);
+}
+
+.boton:hover,
+.boton:focus-visible {
+  background-color: var(--naranja-oscuro);
+  color: var(--blanco);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(246, 138, 43, 0.5);
+}
+
+a:focus-visible {
+  outline: 3px solid var(--azul);
+  outline-offset: 3px;
+}
+
+
+/* ==========================================================================
+   6. ESTRUCTURA GENERAL DE LAS SECCIONES
+   ========================================================================== */
+
+/* POR QUÉ: antes las secciones ocupaban todo el ancho de la pantalla; en un
+   monitor grande el contenido quedaba muy estirado. Ahora tienen un ancho
+   máximo y se centran con margin-inline: auto. */
+main > section {
+  max-width: var(--ancho-max);
+  margin-inline: auto;
+  padding: 3rem 1rem;
+}
+
+
+/* ==========================================================================
+   7. INICIO (HERO)
+   ========================================================================== */
+
+/* ANTES (ya no se usa):
+#titulo{
+  font-size: 4rem;
+}
+#inicio img{
+  width: 500px;
+  height: 600px;
+  border-radius: 30px;
+}
+   POR QUÉ:
+   - 4rem fijo es muy grande en celular y el título se parte feo; clamp()
+     lo hace fluido.
+   - La imagen con alto fijo de 600px se deformaba en celular: el
+     max-width:100% achicaba el ancho pero el alto seguía en 600px.
+     Con aspect-ratio + object-fit: cover mantiene la proporción y recorta
+     sin deformar. */
+
+#inicio {
+  text-align: center;
+  padding-top: 2.5rem;
+}
+
+#titulo {
+  font-size: clamp(2.6rem, 10vw, 5rem);
+  color: var(--verde-oscuro);
+  margin-bottom: 0.2em;
+  text-shadow: 3px 3px 0 var(--cielo);
+}
+
+#eslogan {
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem); /* vw significa viewport width, es decir, el ancho de la ventana del navegador. 1vw = 1 % del ancho de la pantalla, así que 2.5vw = 2,5 % del ancho de la pantalla. */
+  max-width: 38ch;          /* evita renglones demasiado largos */
+  margin: 0 auto 0.5rem;
+}
+
+#inicio img {
+  width: min(100%, 520px);
+  height: auto;
+  aspect-ratio: 5 / 6;
+  object-fit: cover;
+  margin: 1.5rem auto 0;
+  border-radius: 30px;
+  border: 6px solid var(--blanco);
+  box-shadow: var(--sombra);
+}
+
+
+/* ==========================================================================
+   8. VIDEO
+   ========================================================================== */
+
+/* POR QUÉ: el iframe tiene width="919" en el HTML; en un celular de 375px se
+   salía de la pantalla y aparecía scroll horizontal. El CSS tiene prioridad
+   sobre esos atributos: width 100% + aspect-ratio 16/9 lo hacen responsive
+   sin tocar el HTML. */
+#video {
+  max-width: 960px;
+}
+
+#video iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+}
+
+
+/* ==========================================================================
+   9. TARJETAS (ARTICLE) - estilo común
+   ========================================================================== */
+
+/* ANTES (ya no se usa):
+article{
+  background-color: var(--blanco);
+  padding: 20px 100px;
+  margin: 30px;
+  border: 2px solid var(--verde);
+  border-radius: 15px;
+}
+article img{
+  border-radius: 15px;
+  height: 500px;
+}
+#servicios article img{
+    width: 500px;
+    height: 500px;
+}
+   POR QUÉ:
+   - 100px de padding a cada lado en un celular de 375px deja apenas ~115px
+     para el contenido: el texto queda en una columna muy angosta.
+   - "margin: 30px" se reemplaza por el "gap" del grid, que separa las
+     tarjetas de forma uniforme sin sumar márgenes extra en los bordes.
+   - Las alturas fijas de 500px deformaban las fotos. Ahora las imágenes
+     ocupan el 100% del ancho de la tarjeta con una proporción fija y
+     object-fit: cover (recortan en lugar de estirarse).
+   - La regla de #servicios ya no hace falta: todas las fotos de tarjetas
+     comparten el mismo estilo. */
+
+article {
+  background-color: var(--blanco);
+  padding: 1.5rem;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  border-top: 6px solid var(--verde);
+  transition: transform var(--transicion), box-shadow var(--transicion);
+}
+
+article:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sombra-hover);
+}
+
+article img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: calc(var(--radio) - 6px);
+  margin-bottom: 1.2rem;
+}
+
+/* GRID RESPONSIVE SIN MEDIA QUERIES:
+   auto-fit + minmax crea tantas columnas como quepan, cada una de mínimo
+   280px. En celular queda 1 columna, en tablet 2 y en escritorio 3.
+   min(100%, 280px) evita desborde en pantallas de menos de 280px. */
+#servicios,
+#planes,
+#paseadores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 1.8rem;
+}
+
+
+/* ==========================================================================
+   10. SERVICIOS
+   ========================================================================== */
+#servicios article {
+  text-align: center;
+}
+
+
+/* ==========================================================================
+   11. PLANES
+   ========================================================================== */
+#planes {
+  max-width: 900px;   /* solo hay 2 planes: así no quedan demasiado anchos */
+}
+
+#planes article {
+  text-align: center;
+  border-top-color: var(--naranja);
+  padding: 2rem 1.5rem;
+}
+
+/* El precio (primer párrafo del plan) se destaca */
+#planes .parrafo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--azul-oscuro);
+  background-color: var(--cielo-claro);
+  border-radius: 12px;
+  padding: 0.6rem;
+}
+
+#planes ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  text-align: left;
+}
+
+#planes li {
+  padding: 0.6rem 0 0.6rem 2rem;
+  border-bottom: 1px dashed var(--cielo);
+  position: relative;
+}
+
+#planes li:last-child {
+  border-bottom: none;
+}
+
+/* Viñeta personalizada con un check verde */
+#planes li::before {
+  content: "✔";
+  position: absolute;
+  left: 0.4rem;
+  color: var(--verde-oscuro);
+  font-weight: 700;
+}
+
+
+/* ==========================================================================
+   12. PASEADORES
+   ========================================================================== */
+#paseadores article {
+  text-align: center;
+}
+
+/* Fotos de perfil circulares */
+#paseadores article img {
+  width: 170px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  border: 5px solid var(--verde);
+}
+
+
+/* ==========================================================================
+   13. CONTACTO
+   ========================================================================== */
+#contacto {
+  text-align: center;
+  background: linear-gradient(135deg, var(--azul), var(--azul-oscuro));
+  color: var(--blanco);
+  border-radius: var(--radio);
+  margin: 2rem 1rem 3rem;
+  padding: 3rem 1.5rem;
+  box-shadow: var(--sombra-hover);
+}
+
+#contacto h2 {
+  color: var(--verde);   /* aquí el verde original SÍ contrasta bien porque el fondo es oscuro */
+}
+
+#contacto ul {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+#contacto a {
+  display: inline-block;
+  color: var(--azul-oscuro);
+  background-color: var(--blanco);
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  word-break: break-word;   /* el correo largo no se sale en celular */
+  transition: background-color var(--transicion), color var(--transicion);
+}
+
+#contacto a:hover,
+#contacto a:focus-visible {
+  background-color: var(--naranja);
+  color: var(--azul-oscuro);
+}
+
+
+/* ==========================================================================
+   14. FOOTER
+   ========================================================================== */
+footer {
+  background-color: var(--verde-oscuro);
+  color: var(--blanco);
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+footer p {
+  margin: 0.3rem 0;
+}
+
+footer a {
+  color: var(--blanco);
+  font-weight: 700;
+}
+
+
+/* ==========================================================================
+   15. MEDIA QUERIES (de celular hacia pantallas grandes)
+   ========================================================================== */
+
+/* Tablet y escritorio (desde 768px) */
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 110px; /* para que el header fijo no tape el título de la sección */
+  }
+
+  /* Header en una sola fila y fijo arriba al hacer scroll.
+     En celular NO se deja fijo porque ocuparía mucho espacio de pantalla. */
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.6rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  header img {
+    height: 80px;
+  }
+
+  nav .boton {
+    font-size: 1.1rem;
+  }
+
+  main > section {
+    padding: 4rem 2rem;
+  }
+
+  #contacto {
+    margin: 2rem auto 4rem;
+    padding: 4rem 2rem;
+  }
+}
+
+/* Escritorio grande (desde 1024px) */
+@media (min-width: 1024px) {
+  nav ul {
+    gap: 1rem;
+  }
+}
+
+
+/* ==========================================================================
+   16. ACCESIBILIDAD: menos movimiento
+   ========================================================================== */
+
+/* POR QUÉ: algunas personas configuran su sistema para reducir animaciones
+   (mareo, sensibilidad visual). Aquí se respetan esas preferencias. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+
+  article:hover,
+  .boton:hover {
+    transform: none;
+  }
+}
